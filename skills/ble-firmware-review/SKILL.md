@@ -80,6 +80,12 @@ A nonce that can repeat, a challenge accepted twice, a counter that resets on re
 peer's does not, or a window that stays open after the thing it guarded finished. Check that the
 value is consumed on use and not merely compared, and that a reconnect cannot rewind it.
 
+**This check is about acceptance, never refusal.** A stale challenge that produces a *denial* — two
+taps racing, a write answering a nonce the peer has already rotated — is the freshness working.
+It may still be a bug worth someone's time; it is not this one, and tagging it `replay:` teaches
+the reader that the tag means "something about nonces" rather than "a door opened that should not
+have".
+
 ### `dfu:` update atomicity
 
 The question is always the same: can the device end up running a partial image? Check that the
