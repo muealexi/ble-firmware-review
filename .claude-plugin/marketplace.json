@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "ble-firmware-review",
-  "description": "Review BLE firmware and the app that speaks to it for the defects that reach hardware: erased key storage, leaked connection slots, replayed nonces, partial firmware images.",
+  "description": "Review passes for embedded work, one framework at a time. Arduino today; a bare-metal ESP-IDF sibling would be the second entry here rather than a widening of the first.",
   "owner": {
     "name": "Alexis Mueller",
     "url": "https://github.com/muealexi"

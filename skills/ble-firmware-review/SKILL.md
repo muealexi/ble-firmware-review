@@ -36,6 +36,10 @@ One line per finding. Nothing else — no summary, no preamble, no restating the
 
 `<file>:L<line>: <tag> <what>. <consequence>.`
 
+One line means one line, however wide. A real path spends forty columns before the finding starts,
+so these run past eighty; never wrap one to fit a terminal, because a two-line finding is the thing
+this format exists to prevent.
+
 Tags: `nvs:` `slot:` `replay:` `dfu:` `pairing:` `mutex:` `budget:` `key:`
 
 ❌ "The DFU path might want to verify before it commits — have you considered power loss?"
