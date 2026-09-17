@@ -19,12 +19,9 @@ belong to other passes.
 
 ## Scope
 
-Arduino-framework firmware — `arduino-cli`, NimBLE-Arduino, HomeSpan. **ESP-IDF and FreeRTOS are
-deliberately out of scope**: their patterns differ enough that advice written for one misleads in
-the other. An ESP-IDF sibling would be a second skill, not a widening of this one.
-
-The pass reviews **both ends of the protocol**. A replay window enforced in firmware and ignored
-by the client is a defect in the client, and only a reviewer reading both can see the mismatch.
+Arduino-framework firmware — `arduino-cli`, NimBLE-Arduino, HomeSpan — and the client that speaks
+to it. **ESP-IDF and FreeRTOS are out of scope**; an ESP-IDF sibling would be a second skill, not
+a widening of this one. The skill states the scope and the both-ends rule in full.
 
 ## Install
 
@@ -35,6 +32,6 @@ by the client is a defect in the client, and only a reviewer reading both can se
 
 ## Adding a check
 
-A check enters the list only when someone can name the defect it would have caught. Checks
-admitted for being generally good practice fire on everything, which teaches readers to skim the
-output and takes the useful checks down with them.
+The bar, and the reason for it, are in
+[`skills/ble-firmware-review/SKILL.md`](skills/ble-firmware-review/SKILL.md) — the file the model
+actually reads, and the one place this rule lives.
