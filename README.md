@@ -20,8 +20,11 @@ belong to other passes.
 ## Scope
 
 Arduino-framework firmware — `arduino-cli`, NimBLE-Arduino, HomeSpan — and the client that speaks
-to it. **ESP-IDF and FreeRTOS are out of scope**; an ESP-IDF sibling would be a second skill, not
-a widening of this one. The skill states the scope and the both-ends rule in full.
+to it. That framework sits on ESP-IDF, so **the IDF calls the Arduino core re-exports are in
+scope**: `esp_ota_*`, `nvs_*`, the partition APIs. The `dfu:` and `nvs:` checks are mostly about
+them. What is out of scope is the bare-metal IDF project shape and FreeRTOS task primitives as the
+concurrency model; that would be a second skill, not a widening of this one. The skill states the
+scope and the both-ends rule in full.
 
 ## Install
 
