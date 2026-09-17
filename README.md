@@ -20,8 +20,8 @@ belong to other passes.
 ## Scope
 
 Arduino-framework firmware — `arduino-cli`, NimBLE-Arduino, HomeSpan — and the client that speaks
-to it. **ESP-IDF and FreeRTOS are out of scope**; an ESP-IDF sibling would be a second skill, not
-a widening of this one. The skill states the scope and the both-ends rule in full.
+to it, including the ESP-IDF calls the Arduino core re-exports. Bare-metal IDF and FreeRTOS task
+primitives are out. The skill draws the line and states the both-ends rule in full.
 
 ## Install
 

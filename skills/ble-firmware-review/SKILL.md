@@ -1,15 +1,12 @@
 ---
 name: ble-firmware-review
 description: >
-  Review a diff for the defects that bite BLE devices running Arduino-framework
-  firmware: a debug path that erases the flash partition holding the keys, a
-  connection slot taken and never returned, a nonce or pairing window that
-  outlives what it guards, a firmware update that can leave a partial image
-  running, a stack's own structures read outside its poll loop, an unbounded
-  wait, a key that reaches a log. Reviews both ends of a protocol — the firmware
-  and the app that speaks to it — because the seam between them is where these
-  live. Use when reviewing changes to BLE firmware, a pairing or DFU path, or
-  the client that drives one. Reports; it does not edit.
+  Review a diff for the defects that reach hardware on a BLE device: erased key
+  storage, leaked connection slots, replayed nonces, partial firmware images,
+  secrets on the air or in a log. Covers Arduino-framework firmware and the app
+  that speaks to it, both ends of the protocol. Use when reviewing BLE firmware,
+  a pairing, OTA or key-handling path, or the client that drives one. Reports
+  one line per finding; never edits.
 ---
 
 # BLE firmware review
@@ -19,8 +16,15 @@ them is a style opinion. If a check ever fires on something that is not a defect
 wrong and should be narrowed — not the finding argued away.
 
 **Scope:** Arduino-framework firmware (`arduino-cli`, NimBLE-Arduino, HomeSpan and friends), and
-the client that speaks to it. ESP-IDF and FreeRTOS APIs are deliberately out of scope: their
-patterns differ enough that advice written for one misleads in the other.
+the client that speaks to it. That framework sits on ESP-IDF, so **the IDF calls the Arduino core
+re-exports are in scope and are the point** — `esp_ota_begin`, `esp_ota_set_boot_partition`,
+`esp_ota_mark_app_valid_cancel_rollback`, the `nvs_*` family, the partition APIs. The `dfu:` and
+`nvs:` checks are largely about exactly those.
+
+Out of scope is the *bare-metal* IDF project shape — `app_main`, components and CMake, menuconfig —
+and FreeRTOS task primitives used as the concurrency model: `xTaskCreate`, queues, semaphores. A
+sketch's `loop()` and a task scheduler fail differently enough that advice for one misleads in the
+other.
 
 **Review both ends.** A replay window enforced in firmware and ignored by the app is a defect in
 the app. A length the app sends and the firmware trusts is a defect in the firmware. When only one
@@ -32,7 +36,21 @@ One line per finding. Nothing else — no summary, no preamble, no restating the
 
 `<file>:L<line>: <tag> <what>. <consequence>.`
 
+One line means one line, however wide. A real path spends forty columns before the finding starts,
+so these run past eighty; never wrap one to fit a terminal, because a two-line finding is the thing
+this format exists to prevent.
+
 Tags: `nvs:` `slot:` `replay:` `dfu:` `pairing:` `mutex:` `budget:` `key:`
+
+❌ "The DFU path might want to verify before it commits — have you considered power loss?"
+
+✅ `d_dfu.ino:L88: dfu: boot partition set before the HMAC. Power loss then boots unverified.`
+
+❌ "Consider whether this connection handling could leak under error conditions."
+
+✅ `g_ble.ino:L142: slot: bad-length return leaves the slot held. Release in the exit path.`
+
+✅ `Opening.swift:L51: replay: nonce compared, never consumed. Two writes on one read both open.`
 
 Report nothing when there is nothing. A review that invents a finding to look thorough is worse
 than a silent one, because the next person stops reading the output.

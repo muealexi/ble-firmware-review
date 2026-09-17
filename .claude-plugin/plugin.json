@@ -1,0 +1,10 @@
+{
+  "name": "ble-firmware-review",
+  "version": "0.1.0",
+  "description": "Eight checks for Arduino-framework BLE firmware and its client: erased key storage, leaked connection slots, replayed nonces, partial firmware images.",
+  "author": {
+    "name": "Alexis Mueller",
+    "url": "https://github.com/muealexi"
+  },
+  "license": "MIT"
+}
