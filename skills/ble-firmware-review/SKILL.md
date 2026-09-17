@@ -38,16 +38,15 @@ One line per finding. Nothing else — no summary, no preamble, no restating the
 
 Tags: `nvs:` `slot:` `replay:` `dfu:` `pairing:` `mutex:` `budget:` `key:`
 
-❌ "The DFU path might want to consider verifying before it commits — have you thought about what
-happens if power is lost during the write?"
+❌ "The DFU path might want to verify before it commits — have you considered power loss?"
 
-✅ `d_dfu.ino:L88: dfu: esp_ota_set_boot_partition before the image HMAC is checked. A cut cable between the two boots an unverified image.`
+✅ `d_dfu.ino:L88: dfu: boot partition set before the HMAC. Power loss then boots unverified.`
 
 ❌ "Consider whether this connection handling could leak under error conditions."
 
-✅ `g_ble.ino:L142: slot: early return on a bad length leaves the slot held. Release in the exit path, not after the parse.`
+✅ `g_ble.ino:L142: slot: bad-length return leaves the slot held. Release in the exit path.`
 
-✅ `Opening.swift:L51: replay: nonce compared but never consumed. Two writes on one read of TX both open the Door.`
+✅ `Opening.swift:L51: replay: nonce compared, never consumed. Two writes on one read both open.`
 
 Report nothing when there is nothing. A review that invents a finding to look thorough is worse
 than a silent one, because the next person stops reading the output.

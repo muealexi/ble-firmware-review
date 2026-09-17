@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "ble-firmware-review",
-      "description": "Eight checks for Arduino-framework BLE firmware and its client. Reports one line per finding; never edits.",
+      "description": "Eight checks for Arduino-framework BLE firmware and its client: erased key storage, leaked connection slots, replayed nonces, partial firmware images.",
       "source": "./",
       "category": "review"
     }
