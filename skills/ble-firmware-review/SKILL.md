@@ -80,11 +80,9 @@ A nonce that can repeat, a challenge accepted twice, a counter that resets on re
 peer's does not, or a window that stays open after the thing it guarded finished. Check that the
 value is consumed on use and not merely compared, and that a reconnect cannot rewind it.
 
-**This check is about acceptance, never refusal.** A stale challenge that produces a *denial* — two
-taps racing, a write answering a nonce the peer has already rotated — is the freshness working.
-It may still be a bug worth someone's time; it is not this one, and tagging it `replay:` teaches
-the reader that the tag means "something about nonces" rather than "a door opened that should not
-have".
+**Acceptance, never refusal.** A stale challenge producing a *denial* — two taps racing, a write
+answering a nonce the peer already rotated — is the freshness working. Often a real bug, and a
+correctness pass owns it; say so rather than going quiet, because silence here means nothing found.
 
 ### `dfu:` update atomicity
 
@@ -129,3 +127,8 @@ bugs unattended is the last thing anyone wants near a lock.
 A check enters this list only when someone can name the defect it would have caught. Anything
 admitted on the grounds that it is generally good practice will fire on everything, teach readers
 to skim the output, and take the other seven checks down with it.
+
+A **boundary** — a line saying what a check is *not* — takes the same bar, plus one more: name the
+finding that was wrongly tagged, and say which pass owns it instead. A boundary with nowhere to
+send what it evicts converts a real defect into silence, and silence here is a claim that there was
+nothing to find.

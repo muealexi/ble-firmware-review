@@ -30,6 +30,22 @@ primitives are out. The skill draws the line and states the both-ends rule in fu
 /plugin install ble-firmware-review@ble-firmware-review
 ```
 
+## Does it work
+
+Backtested blind against two commits from a real BLE opener project, each taken *before* the fix
+that followed, reviewed by agents told nothing about what was in them.
+
+| Diff | Findings | Verified against the fix that shipped |
+|---|---|---|
+| 130 lines of firmware | 3 | 3 |
+| 780 lines of Swift, chosen as a control | 2 | 1 |
+
+Five findings, four real, no fabrications. The firmware case found **two defects beyond the one it
+was set** — a board falling back to HomeSpan's published `DEFAULT_SETUP_CODE`, and a factory wipe
+reaching the HAP namespace from the wrong task — and its remedy for the third, `setSerialInputDisable(true)`,
+is what that project shipped. The fifth finding was real behaviour under the wrong tag, and became
+the boundary now written into `replay:`.
+
 ## Adding a check
 
 The bar, and the reason for it, are in
