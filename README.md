@@ -40,7 +40,7 @@ that followed, reviewed by agents told nothing about what was in them.
 | 130 lines of firmware | 3 | 3 |
 | 780 lines of Swift, chosen as a control | 2 | 1 |
 
-Five findings, four real, no fabrications. The firmware case found **two defects beyond the one it
+Five findings, four verified against later fixes, no fabrications. The firmware case found **two defects beyond the one it
 was set** — a board falling back to HomeSpan's published `DEFAULT_SETUP_CODE`, and a factory wipe
 reaching the HAP namespace from the wrong task — and its remedy for the third, `setSerialInputDisable(true)`,
 is what that project shipped. The fifth finding was real behaviour under the wrong tag, and became
