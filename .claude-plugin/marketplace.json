@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ble-firmware-review",
+  "description": "Review BLE firmware and the app that speaks to it for the defects that reach hardware: erased key storage, leaked connection slots, replayed nonces, partial firmware images.",
+  "owner": {
+    "name": "Alexis Mueller",
+    "url": "https://github.com/muealexi"
+  },
+  "plugins": [
+    {
+      "name": "ble-firmware-review",
+      "description": "Eight checks for Arduino-framework BLE firmware and its client. Reports one line per finding; never edits.",
+      "source": "./",
+      "category": "review"
+    }
+  ]
+}
